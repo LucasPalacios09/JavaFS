@@ -62,7 +62,7 @@ const response = await fetch("usuarios",{
             +'</td><td>'+ usuario.apellido
             +'</td><td>'+ usuario.telefono
             +'</td><td>'+ usuario.email
-            +'</td><td><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>';
+            +'</td><td><a href="#" onClick=eliminarUsuario('+usuario.id+') class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>';
     
             listadoHtml += usuarioHtml;
         }
@@ -81,6 +81,25 @@ const response = await fetch("usuarios",{
     
     
     })();
+
+   async function eliminarUsuario(id){
+
+    if (!confirm("¿Seguro que desea eliminar el usuario?")) {
+        return;
+    }
+
+    const response = await fetch("api/usuarios/"+id,{
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+        });
+
+        location.reload();
+
+   }
 
 
 
